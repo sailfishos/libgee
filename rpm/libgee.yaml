@@ -1,0 +1,30 @@
+Name: libgee
+Summary: GObject collection library
+Version: 0.6.5
+Release: 1
+Group: System/Libraries
+License: LGPLv2+
+URL: http://live.gnome.org/Libgee
+Sources:
+    - http://download.gnome.org/sources/%{name}/0.6/%{name}-%{version}.tar.xz
+    - gnome-autogen.sh
+Patches:
+    - fix-disable-introspection.patch
+Description: |
+    libgee is a collection library providing GObject-based interfaces and
+    classes for commonly used data structures.
+
+PkgConfigBR:
+    - glib-2.0 >= 2.12.0
+    - gobject-2.0 >= 2.12.0
+    - libvala-0.16
+SetupOptions: -q -n %{name}-%{version}/%{name}
+SubPackages:
+    - Name: devel
+      Summary: Development files for %{name}
+      Group: Development/Libraries
+      Description: |
+          The %{name}-devel package contains libraries and header files for
+          developing applications that use %{name}.
+      Requires:
+          - vala

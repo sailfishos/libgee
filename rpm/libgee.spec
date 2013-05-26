@@ -15,7 +15,6 @@ Group:      System/Libraries
 License:    LGPLv2+
 URL:        http://live.gnome.org/Libgee
 Source0:    http://download.gnome.org/sources/%{name}/0.6/%{name}-%{version}.tar.xz
-Source1:    gnome-autogen.sh
 Source100:  libgee.yaml
 Patch0:     fix-disable-introspection.patch
 Requires(post): /sbin/ldconfig
@@ -23,6 +22,7 @@ Requires(postun): /sbin/ldconfig
 BuildRequires:  pkgconfig(glib-2.0) >= 2.12.0
 BuildRequires:  pkgconfig(gobject-2.0) >= 2.12.0
 BuildRequires:  pkgconfig(libvala-0.16)
+BuildRequires:  gnome-common
 
 %description
 libgee is a collection library providing GObject-based interfaces and
@@ -46,15 +46,13 @@ developing applications that use %{name}.
 # fix-disable-introspection.patch
 %patch0 -p1
 # >> setup
-%__cp $RPM_SOURCE_DIR/gnome-autogen.sh .
-%__chmod 0755 gnome-autogen.sh
 echo "EXTRA_DIST = missing-gtk-doc" > gtk-doc.make
 # << setup
 
 %build
 # >> build pre
 touch ChangeLog
-USE_GNOME2_MACROS=1 NOCONFIGURE=1 ./gnome-autogen.sh
+USE_GNOME2_MACROS=1 NOCONFIGURE=1 gnome-autogen.sh
 # << build pre
 
 %configure --disable-static

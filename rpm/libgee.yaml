@@ -7,7 +7,6 @@ License: LGPLv2+
 URL: http://live.gnome.org/Libgee
 Sources:
     - http://download.gnome.org/sources/%{name}/0.6/%{name}-%{version}.tar.xz
-    - gnome-autogen.sh
 Patches:
     - fix-disable-introspection.patch
 Description: |
@@ -18,6 +17,8 @@ PkgConfigBR:
     - glib-2.0 >= 2.12.0
     - gobject-2.0 >= 2.12.0
     - libvala-0.16
+PkgBR:
+    - gnome-common
 SetupOptions: -q -n %{name}-%{version}/%{name}
 SubPackages:
     - Name: devel

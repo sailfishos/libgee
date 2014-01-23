@@ -21,7 +21,7 @@ Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 BuildRequires:  pkgconfig(glib-2.0) >= 2.12.0
 BuildRequires:  pkgconfig(gobject-2.0) >= 2.12.0
-BuildRequires:  pkgconfig(libvala-0.16)
+BuildRequires:  vala-devel >= 0.16
 BuildRequires:  gnome-common
 
 %description

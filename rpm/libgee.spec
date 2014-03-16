@@ -87,6 +87,6 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 # >> files devel
 %{_includedir}/*
 %{_libdir}/*.so
-%{_libdir}/pkgconfig/gee-1.0.pc
-%{_datadir}/vala/vapi/gee-1.0.vapi
+%{_libdir}/pkgconfig/gee-0.8.pc
+%{_datadir}/vala/vapi/gee-0.8.vapi
 # << files devel

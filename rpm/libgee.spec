@@ -7,7 +7,6 @@ Group:      System/Libraries
 License:    LGPLv2+
 URL:        http://live.gnome.org/Libgee
 Source0:    http://download.gnome.org/sources/%{name}/0.6/%{name}-%{version}.tar.xz
-Patch0:     fix-disable-introspection.patch
 Patch1:     0001-revert-hide-internal-to-work-with-vala-0.24.0.patch
 
 Requires(post): /sbin/ldconfig
@@ -16,6 +15,7 @@ BuildRequires:  pkgconfig(glib-2.0) >= 2.36.0
 BuildRequires:  pkgconfig(gobject-2.0) >= 2.36.0
 BuildRequires:  vala-devel >= 0.24
 BuildRequires:  vala-tools >= 0.24
+BuildRequires:  gobject-introspection-devel >= 1.36
 BuildRequires:  gnome-common
 
 %description
@@ -37,8 +37,6 @@ developing applications that use %{name}.
 %prep
 %setup -q -n %{name}-%{version}/%{name}
 
-# fix-disable-introspection.patch
-%patch0 -p1
 # 0001-revert-hide-internal-to-work-with-vala-0.24.0.patch
 %patch1 -p1
 
@@ -65,6 +63,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %defattr(-,root,root,-)
 %doc COPYING
 %{_libdir}/*.so.*
+%{_libdir}/girepository-1.0/Gee-0.8.typelib
 
 %files devel
 %defattr(-,root,root,-)
@@ -72,3 +71,4 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/gee-0.8.pc
 %{_datadir}/vala/vapi/gee-0.8.vapi
+%{_datadir}/gir-1.0/Gee-0.8.gir

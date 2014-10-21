@@ -7,6 +7,7 @@ Group:      System/Libraries
 License:    LGPLv2+
 URL:        http://live.gnome.org/Libgee
 Source0:    http://download.gnome.org/sources/%{name}/0.6/%{name}-%{version}.tar.xz
+Patch0:     0001-fix-broken-sed.patch
 Patch1:     0001-revert-hide-internal-to-work-with-vala-0.24.0.patch
 
 Requires(post): /sbin/ldconfig
@@ -37,6 +38,8 @@ developing applications that use %{name}.
 %prep
 %setup -q -n %{name}-%{version}/%{name}
 
+# 0001-fix-broken-sed.patch
+%patch0 -p1
 # 0001-revert-hide-internal-to-work-with-vala-0.24.0.patch
 %patch1 -p1
 

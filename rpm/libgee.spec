@@ -1,14 +1,16 @@
 Name:       libgee
 
 Summary:    GObject collection library
-Version:    0.6.5
+Version:    0.20.0
 Release:    1
 Group:      System/Libraries
 License:    LGPLv2+
 URL:        http://live.gnome.org/Libgee
 Source0:    http://download.gnome.org/sources/%{name}/0.6/%{name}-%{version}.tar.xz
 Patch0:     0001-fix-broken-sed.patch
-Patch1:     0001-revert-hide-internal-to-work-with-vala-0.24.0.patch
+# Our Gnome building isn't new enough for this
+# AX_REQUIRE_DEFINED([GOBJECT_INTROSPECTION_CHECK]) causes a build error
+Patch1:     0002-revert-move-away-from-gnome-common.patch
 
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
@@ -40,7 +42,7 @@ developing applications that use %{name}.
 
 # 0001-fix-broken-sed.patch
 %patch0 -p1
-# 0001-revert-hide-internal-to-work-with-vala-0.24.0.patch
+# 0002-revert-move-away-from-gnome-common.patch
 %patch1 -p1
 
 echo "EXTRA_DIST = missing-gtk-doc" > gtk-doc.make
@@ -48,7 +50,7 @@ echo "EXTRA_DIST = missing-gtk-doc" > gtk-doc.make
 %build
 touch ChangeLog
 USE_GNOME2_MACROS=1 NOCONFIGURE=1 gnome-autogen.sh
-
+%autogen --disable-static
 %configure --disable-static
 make %{?jobs:-j%jobs}
 

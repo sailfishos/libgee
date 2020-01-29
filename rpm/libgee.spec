@@ -1,19 +1,15 @@
 Name:       libgee
 
 Summary:    GObject collection library
-Version:    0.20.0
+Version:    0.20.2
 Release:    1
-Group:      System/Libraries
 License:    LGPLv2+
 URL:        http://live.gnome.org/Libgee
-Source0:    http://download.gnome.org/sources/%{name}/0.6/%{name}-%{version}.tar.xz
-Patch0:     0001-fix-broken-sed.patch
-# Our Gnome building isn't new enough for this
-# AX_REQUIRE_DEFINED([GOBJECT_INTROSPECTION_CHECK]) causes a build error
-Patch1:     0002-revert-move-away-from-gnome-common.patch
-
+Source0:    %{name}-%{version}.tar.xz
+Patch0:     0001-Our-old-sed-does-not-support-E-work-around-it.patch
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
+BuildRequires:  autoconf
 BuildRequires:  pkgconfig(glib-2.0) >= 2.36.0
 BuildRequires:  pkgconfig(gobject-2.0) >= 2.36.0
 BuildRequires:  vala-devel >= 0.24
@@ -28,7 +24,6 @@ classes for commonly used data structures.
 
 %package devel
 Summary:    Development files for %{name}
-Group:      Development/Libraries
 Requires:   %{name} = %{version}-%{release}
 Requires:   vala
 
@@ -38,20 +33,10 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q -n %{name}-%{version}/%{name}
-
-# 0001-fix-broken-sed.patch
-%patch0 -p1
-# 0002-revert-move-away-from-gnome-common.patch
-%patch1 -p1
-
-echo "EXTRA_DIST = missing-gtk-doc" > gtk-doc.make
+%autosetup -p1 -n %{name}-%{version}/%{name}
 
 %build
-touch ChangeLog
-USE_GNOME2_MACROS=1 NOCONFIGURE=1 gnome-autogen.sh
-%autogen --disable-static
-%configure --disable-static
+./autogen.sh --disable-doc --disable-static --disable-internal-asserts --prefix=%{_prefix}
 make %{?jobs:-j%jobs}
 
 %install
@@ -66,7 +51,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-%doc COPYING
+%license COPYING
 %{_libdir}/*.so.*
 %{_libdir}/girepository-1.0/Gee-0.8.typelib
 

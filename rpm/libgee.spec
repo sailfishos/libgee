@@ -15,7 +15,6 @@ BuildRequires:  pkgconfig(gobject-2.0) >= 2.36.0
 BuildRequires:  vala-devel >= 0.24
 BuildRequires:  vala-tools >= 0.24
 BuildRequires:  gobject-introspection-devel >= 1.36
-BuildRequires:  gnome-common
 
 %description
 libgee is a collection library providing GObject-based interfaces and
@@ -36,8 +35,8 @@ developing applications that use %{name}.
 %autosetup -p1 -n %{name}-%{version}/%{name}
 
 %build
-./autogen.sh --disable-doc --disable-static --disable-internal-asserts --prefix=%{_prefix}
-make %{?jobs:-j%jobs}
+./autogen.sh --disable-doc --disable-static --disable-internal-asserts --prefix=%{_prefix} --libdir=%{_libdir}
+make %{?_smp_mflags}
 
 %install
 rm -rf %{buildroot}

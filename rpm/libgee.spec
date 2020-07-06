@@ -1,7 +1,7 @@
 Name:       libgee
 
 Summary:    GObject collection library
-Version:    0.20.2
+Version:    0.20.3
 Release:    1
 License:    LGPLv2+
 URL:        http://live.gnome.org/Libgee
@@ -10,6 +10,7 @@ Patch0:     0001-Our-old-sed-does-not-support-E-work-around-it.patch
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 BuildRequires:  autoconf
+BuildRequires:  autoconf-archive
 BuildRequires:  pkgconfig(glib-2.0) >= 2.36.0
 BuildRequires:  pkgconfig(gobject-2.0) >= 2.36.0
 BuildRequires:  vala-devel >= 0.24

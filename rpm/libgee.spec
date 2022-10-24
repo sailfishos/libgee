@@ -1,7 +1,7 @@
 Name:       libgee
 
 Summary:    GObject collection library
-Version:    0.20.3
+Version:    0.20.6
 Release:    1
 License:    LGPLv2+
 URL:        http://live.gnome.org/Libgee
@@ -37,10 +37,9 @@ developing applications that use %{name}.
 
 %build
 ./autogen.sh --disable-doc --disable-static --disable-internal-asserts --prefix=%{_prefix} --libdir=%{_libdir}
-make %{?_smp_mflags}
+%make_build
 
 %install
-rm -rf %{buildroot}
 %make_install
 
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
